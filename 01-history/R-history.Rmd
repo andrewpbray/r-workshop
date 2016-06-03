@@ -1,0 +1,63 @@
+---
+title: ".Rhistory"
+author: Andrew Bray (from Chambers useR! Keynote, 2014)
+output:
+  ioslides_presentation:
+    incremental: true
+---
+
+
+## S is born
+
+<div class="columns-2">
+  <img src="chambers.jpg" alt="John Chambers" style="width:450px;height:400px;">
+
+Bell Labs  
+Murray Hill, NJ  
+May 5, 1976
+</div>
+
+
+## S is born
+- designed as an interactive interface to the best algorithms
+- **NOT** designed as a ground-up programming language
+
+
+## Three Key Principes
+- **Object** Everything that exists is an object
+- **Function** Everything that happens is a function call
+- **Interface** R is built on interfaces to many algorithms
+
+
+## Implications {.build}
+- All objects are kept in main memory
+- Lots of copying
+- S, S+, R is 39 years old!
+
+However...
+
+- R can be augmented to serve as an interface to new technologies
+
+
+## Where does R come from?
+
+### The R Core
+
+Douglas Bates, John Chambers, Peter Dalgaard, Seth Falcon, Robert Gentleman, Kurt Hornik, Stefano Iacus, Ross Ihaka, Friedrich Leisch, Uwe Ligges, Thomas Lumley, Martin Maechler, Duncan Murdoch, Paul Murrell, Martyn Plummer, Brian Ripley, Deepayan Sarkar, Duncan Temple Lang, Luke Tierney, Simon Urbanek
+
+
+## The Comprehensive R Archive Network (CRAN)
+- Based in Vienna, mirrored worldwide (Pittsburg?)
+- Anyone can submit packages
+- Extensions: ggplot2, spatstat, RTextTools, rminer
+- Interfaces: Rcpp, RMySQL, jsonlite, rCharts
+- New paradigm: for a new method, publish journal article and package
+
+
+## GitHub: R's other home
+
+```{r, eval = FALSE, echo = TRUE}
+library(devtools)
+install_github("hadley/ggplot2")
+```
+
