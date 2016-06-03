@@ -1,9 +1,4 @@
----
-title: "R Workshop"
-output:
-  html_document:
-    theme: spacelab
----
+# R Workshop
 
 ### Day One
 1.   R History
