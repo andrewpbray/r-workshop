@@ -1,0 +1,98 @@
+---
+title: "Using RMarkdown"
+author: ''
+date: "July 12, 2014"
+output:
+  html_document:
+    fig_height: 3
+    fig_width: 5
+  pdf_document:
+    fig_height: 3
+    fig_width: 5
+  word_document:
+    fig_height: 3
+    fig_width: 5
+---
+
+
+```{r include=FALSE}
+# knitr settings to control how R chunks work.
+require(knitr)
+opts_chunk$set(
+  tidy=FALSE,     # display code as typed
+  size="small"    # slightly smaller font for code
+)
+```
+
+### Text
+
+Text can decorated with **bold** or *italics*.  It is also possible to 
+
+* create [links](http://rmarkdown.rstudio.com/) 
+* include mathematics like $e=mc^2$ or 
+$$y = \beta_0 + \beta_1 x_1 + \beta_2 x_2$$
+* embed images 
+
+Be sure to put a space after the * when you are creating bullets and a space after # when 
+creating section headers, but **not** between $ and the mathematical formulas.
+
+### Graphics
+
+If the code of an R chunk produces a plot, this plot can be displayed in the resulting file.
+
+```{r}
+plot(mtcars$mpg ~ mtcars$hp)
+```
+
+### R output
+Other forms of R output are also displayed as they are produced.
+
+```{r}
+summary(mtcars$mpg)
+```
+
+You can also use "chunk options" to modify how your R chunks work.  We can hide the code:
+
+```{r, echo = FALSE}
+summary(mtcars$mpg)
+```
+
+Or we can hide the output:
+
+```{r, eval=FALSE}
+summary(mtcars$mpg)
+```
+
+### In-text Code
+
+In a similar vein, you can refer to R code in a paragraph by setting it off with single
+ticks, say if we wanted to mentioned that we had used the `summary()` function.  You can
+also put R output directly into text, as in: the mean number of births was 
+`r mean(mtcars$mpg)`.
+
+### Destination formats
+
+This file can be knit to HTML, PDF, or Word.  In RStudio, just select the desired 
+output file type and click on `Knit HTML`, `Knit PDF`, or `Knit Word`.  Use the 
+dropdown menu next to that to change the desired file type.
+
+* * *
+
+### On your own
+Please create a new markdown file called "Brief Bio" with two sections.
+
+#### 1. Hometown
+Provide your hometown and include a photo of it.  Also print
+out some basic demographic data on your home state by using the following code.
+
+```{r, eval=FALSE}
+data(states)
+states.x77[rowNumber,]
+```
+
+You'll need to replace `rowNumber` with the row number of your state.  Also, please
+hide the R code and provide only the output.
+
+#### 2. Food
+Create a numbered list of your top three favorite restaurants of all time and provide links
+to their [Yelp](http://www.yelp.com/) page.

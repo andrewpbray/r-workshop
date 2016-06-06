@@ -24,6 +24,8 @@
 ### Day Four
 
 
+* * *
+
 The materials used during this workshop drawn from a variety of excellent source material developed by others.  They include:
 
 - John Chambers' Keynote at useR! 2014.

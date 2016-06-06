@@ -1,0 +1,117 @@
+---
+title: "Vectors: practice I"
+author: "R Workshop"
+output:
+  html_document:
+    css: ../workshop.css
+    highlight: pygments
+    theme: cerulean
+  pdf_document: default
+---
+
+```{r, echo=FALSE, warning=FALSE, message=FALSE}
+require(knitr)
+opts_chunk$set(warning=FALSE,message=FALSE)
+```
+
+
+## Building vectors
+
+1.   Build the following vectors using the colon operator: `:`.
+
+\[
+\{-1, 0, 1, 2\} \\
+\{2, 1, 0, -1\}
+\]
+
+1.   Build the following vectors using `seq()`.
+
+\[
+\{-1, 0, 1, 2\} \\
+\{2, 4, 6, 8, 10, 12\} \\
+\{2, 3.5, 5, 6.5\}
+\]
+
+1.   Build the following vectors using `rep()`.
+
+\[
+\{1, 2, 3, 1, 2, 3, 1, 2, 3\} \\
+\{1, 1, 2, 2, 3, 3\} \\
+\{1, 1, 2, 3, 3\} \\
+\{1, 2, 3, 1, 2, 3, 1\} \\
+\{1, 1, 2, 2, 3, 3, 1, 1, 2, 2, 3, 3, 1, 1, 2, 2, 3, 3\}
+\]
+
+* * *
+
+## Manipulating vectors
+
+Please paste the following commands into your Rstudio session, in order to set 
+up the following exercises.
+
+```{r}
+require('ggplot2')
+load(url('http://www.stolaf.edu/people/olaf/cs125/hw8.RData'))
+```
+
+
+If at some point you want to restore the data, it is fine to paste these commands 
+in again whenever you need them. 
+
+Let's see whether the drawing function is working correctly. Try typing in the 
+following command, and see what it does:
+
+```{r}
+draw(p0x, p0y)
+```
+
+If all goes well, a simple sketch of Calvin should appear. If you print `p0x`, 
+you will see that it is a vector of numbers, and p0y is another vector of 
+numbers, both of the same length. `p0x` and `p0y` contain the x and y coordinates, 
+respectively, of the points along the line segments that make up the simple Calvin 
+sketch. As an experiment, try the following:
+
+```{r}
+draw(p0x, p0y+25)
+```
+
+Hopefully, the result is that Calvin appeared to move up a distance of 25 units. 
+Before proceeding with the exercises, please think through what is happening with 
+these commands, since it will be easier to answer the following questions if you 
+clearly understand how the two vectors are related to the plot.
+
+1.   If you now draw the next set of vectors:
+
+```{r}
+draw(p1x, p1y)
+```
+
+you will see Calvin's buddy Hobbes, except that there is a problem with the data: 
+the points that are part of Hobbes on the right side have been mistakenly moved 
+up by 25 units. Please fix this problem, so that drawing `p1x` with `p1y` results 
+in a more plausible rendering of Hobbes. 
+
+2.   Let's take a look at the second example:
+
+```{r}
+draw(p2x, p2y)
+```
+
+here, we almost have four duplicates of Calvin in several places, but the upper 
+right drawing has been shifted to the left. Please move that part of the drawing 
+to the right, so that the four Calvins are symmetrically placed (the same distance 
+apart both horizontally and vertically).
+
+3.   Let's take a look at the third example:
+
+```{r}
+draw(p3x, p3y)
+```
+
+here, we almost have four duplicates of Hobbes in several places, but every other 
+point has been moved five units up and to the right, making it almost impossible 
+to see Hobbes anywhere. Try to resolve the four duplicates of Hobbes.
+
+<div id="license">
+Adapted from material developed by Olaf Hall-Holt and Paul Roback for CS 125 at St. Olaf College.
+</div>
