@@ -1,0 +1,88 @@
+---
+title: "Vectors: practice II"
+author: "R Workshop"
+output:
+  html_document:
+    css: ../workshop.css
+    highlight: pygments
+    theme: cerulean
+  pdf_document: default
+---
+
+```{r, echo=FALSE, warning=FALSE, message=FALSE}
+require(knitr)
+opts_chunk$set(warning=FALSE,message=FALSE)
+```
+
+
+## Sorting Vectors
+
+1.   
+
+In addition to its use on vectors, `order()` can also be used to sort (or
+I suppose order!) dataframes.  Consider one of R's preloaded datasets, from
+Motor Trend Cars.
+
+```{r}
+data(mtcars)
+mtcars
+```
+
+say you wanted to look through this list of cars and order them in a way in a way
+that showcases which ones have the best `mpg`, then, the ones that have the 
+highest `hp`.  Using `order()`, rearrange this data frame such that it's ordered
+first by `mpg` (low to high) and then by `hp` (high to low).
+
+* * *
+
+## Changing Vector Elements
+
+Please paste the following commands into your Rstudio session, in order to set up the following exercises.
+
+```{r}
+require('ggplot2')
+load(url('http://www.stolaf.edu/people/olaf/cs125/hw9.RData'))
+```
+
+Let's see whether the drawing function is working correctly. Try pasting in the following command, and see what it does:
+
+```{r}
+draw(p0x, p0y)
+```
+
+If all goes well, a simple sketch of Calvin should appear.
+
+1.   
+
+If you now draw the next set of vectors:
+
+```{r}
+draw(p1x, p1y)
+```
+
+you will see Calvin and his mirror reflection, except that there is a problem with the data: some garbage points are mixed in with the correct data, resulting in a lot of spikes that reach reach between 75 and 100 in the y direction. Please fix this problem, so that drawing `p1x` with `p1y` results in a clean rendering of Calvin and his reflection.
+
+1.   
+
+Let's take a look at the second example:
+
+```{r}
+draw(p2x, p2y)
+```
+
+here, we almost have four duplicates of Hobbes in a square configuration, but the upper right drawing is missing. Please duplicate one of the drawings of Hobbes, and place it in the upper right corner (by modifying the `p2x` and `p2y` vectors, that is).
+
+1.   
+
+Let's take a look at the third example:
+
+```{r}
+draw(p3x, p3y)
+```
+
+here, Calvin is running around a circle, but the drawing closest to the origin is backwards. In particular, the x and y coordinates need to be flipped to restore symmetry. As before, please fix this problem.
+
+
+<div id="license">
+Adapted from material developed by Olaf Hall-Holt and Paul Roback for CS 125 at St. Olaf College.
+</div>
