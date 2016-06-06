@@ -1,6 +1,6 @@
 ---
 title: "Vectors: practice I"
-author: "R Workshop"
+author: "Your name"
 output:
   html_document:
     css: ../workshop.css
