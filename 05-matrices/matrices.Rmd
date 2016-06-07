@@ -1,0 +1,79 @@
+---
+title: "Matrices"
+output:
+  ioslides_presentation:
+    incremental: true
+---
+
+## Contructing a matrix {.build}
+
+```{r}
+m <- matrix(1:6, nrow = 3, ncol = 2)
+m
+```
+
+
+## Contructing a matrix {.build}
+
+```{r}
+m <- matrix(1:6, nrow = 3, ncol = 2,
+            byrow = TRUE)
+m
+```
+
+
+## Matrices {.build}
+
+*Everything is a vector.*
+
+```{r}
+m
+length(m)
+dim(m)
+```
+
+
+## Matrices {.build}
+
+*Everything is a vector.*
+
+- Must be homogenous (e.g. all numerics).
+- Treated like a vector with an extra dim attribute.
+
+```{r}
+attributes(m)
+```
+
+- Matrix operations are fair game.
+
+
+## Matrix operations {.build}
+
+- transpose: `t()`
+- determinant: `det()`
+- inverse: `solve()`
+- inner product: `%*%`
+
+
+## Matrix subsetting {.build}
+
+Subset with `[rows, columns]`.
+
+```{r}
+m[1:2, 2]
+m[m > 3 & m < 6]
+```
+
+
+## Matrix FYI {.build}
+
+```{r}
+rownames(m) <- c("a", "b", "c")
+colnames(m) <- c("green", "blue")
+m
+m[, "green", drop = FALSE]
+```
+
+
+
+
