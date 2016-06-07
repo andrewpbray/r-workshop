@@ -1,0 +1,257 @@
+---
+title: "Vectors"
+output:
+  ioslides_presentation:
+    incremental: true
+---
+
+## Before we get started . . . {.build}
+
+The most important function in R?
+
+> **?**, The most important function in R.
+
+
+## Vectors {.build }
+
+*"Everything is a vector"*
+
+...including scalars, matrices, arrays.
+
+
+Must be of the same mode:
+
+- integer
+- numeric (fp)
+- character (string)
+- logical (boolean)
+- complex
+
+...except for `NA`.
+
+
+# Generating Vectors
+
+## Generating Vectors {.build}
+
+```{r}
+v <- 7
+v
+c(1:30, v)
+l <- c("a", "b", "c", "d")
+c(l, v)
+```
+
+
+## : operator {.build}
+
+```{r}
+5:8
+```
+
+Watch for order of operations.
+
+```{r}
+i <- 5
+1:i - 1
+1:(i - 1)
+```
+
+
+## `seq()` and `rep()` {.build}
+
+```{r}
+seq(5, 8)
+seq(10, 20, 5)
+rep(5, 8)
+rep(1:5, 2)
+```
+
+
+# Vector Operations
+
+## Vector Math {.build}
+
+```{r}
+x <- c(1, 2, 4)
+y <- c(1, 2, 1)
+x + y
+x + 1
+```
+
+
+## Vector Math {.build}
+
+```{r}
+x * y
+x %*% y
+```
+
+
+## Vector Indexing {.build}
+
+Use square brackets to pick out sub-vectors.
+
+```{r}
+letters[1:4]
+letters[c(1, 3)]
+z <- c(1, 3, 7)
+z[-1]
+```
+
+
+## Vector Indexing {.build}
+
+Consider the vector `x <- c(12,15,8,11,24)`.  How do we create a vector of the
+differences between adjacent elements?
+
+```{r}
+x <- c(12, 15, 8, 11, 24)
+x[-1] - x[-length(x)]
+```
+
+Work in vectors instead of loops where possible.
+
+
+## Vector Subsetting/Filtering {.build}
+
+What's going on here?
+
+```{r}
+x <- c(12, 15, 8, 11, 24)
+x[x < 10]
+x < 10
+```
+
+We can index our vector with a logical vector of the same length.
+
+
+## Subsetting with logicals {.build}
+
+```{r}
+x <- c(12, 15, 8, 11, 24)
+i <- c(F, F, T, F, F)
+x[i]
+which(x < 10)
+x[x < 10] <- 10
+x
+```
+
+
+## Useful fact! {.build}
+
+```{r}
+i <- c(F, F, T, F, F)
+sum(i)
+mean(i)
+x <- c(12, 15, 8, 11, 24)
+mean(x > 11)
+```
+
+
+## Logical operators {.build}
+
+`<` less than
+
+`<=` less than or equal
+
+`>` greater than
+
+`>=` greater than or equal
+
+`==` exactly equal to
+
+`!=` not equal to
+
+`!x` not equal to x
+
+`x | y` x or y
+
+`x & y` x and y
+
+
+## {.build}
+
+How can you subset the following vector to exclude both elements less than 10 
+and all even elements? (hint: `%%`)
+
+```{r}
+x <- c(12, 15, 8, 11, 24)
+```
+
+```{r}
+x[x > 10 & x %% 2 == 1]
+```
+
+
+# Practice I
+
+## Useful Functions for Vectors
+
+## Vectors Functions {.build}
+
+What is the behavior of the functions below and what would be the output when this
+vector is supplied as input?
+
+ \[ \{3.2, 9.16, 4.3, 3.2, 8.9\} \]
+ 
+ - `floor()`
+ - `ceiling()`
+ - `round()`
+ - `abs()`
+ - `min()`
+ - `max()`
+
+
+## Vectors Functions {.build}
+
+What is the behavior of the functions below and what would be the output when this
+vector is supplied as input?
+
+ \[ \{3.2, 9.16, 4.3, 3.2, 8.9\} \]
+ 
+ - `which.min()`
+ - `which.max()`
+ - `unique()`
+ - `duplicated()`
+ - `length()`
+ 
+ 
+## Sorting {.build}
+
+Consider the vector:
+
+```{r}
+x <- c(1,6,5,8)
+```
+
+What is the effect of `sort()`?  What about `order()`? 
+
+
+## {.build}
+
+Given the following output, what is `y`?
+
+```{r, echo = FALSE}
+y <- c(-2, 4, 7, -1, 0, 3, 4, -2)
+```
+
+```{r}
+sort(y)
+order(y)
+```
+
+
+## {.build}
+
+```{r}
+y <- c(-2, 4, 7, -1, 0, 3, 4, -2)
+sort(y)
+order(y)
+```
+
+- Can you think of a way to use only `order()` to get the same output as 
+`sort()`?
+
+
+# Practice II
