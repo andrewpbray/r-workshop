@@ -1,0 +1,100 @@
+---
+title: "Project: vectors and functions"
+author: "R Workshop"
+output:
+  html_document:
+    css: ../workshop.css
+    highlight: pygments
+    theme: cerulean
+  pdf_document: default
+---
+
+```{r, echo=FALSE, warning=FALSE, message=FALSE}
+require(knitr)
+opts_chunk$set(warning=FALSE,message=FALSE)
+```
+
+The following link will load the data:
+
+```{r, eval=FALSE}
+load(url('http://www.stolaf.edu/people/olaf/cs125/project1.RData'))
+```
+
+#### Recall:
+
+- The first element of the vector corresponds to the average temperature 
+in January of 1881. The second element is February 1881, etc. The last element is December 2012.
+- Each element in the vector is the scaled deviation (by 100) from a baseline mean 
+global temperature in Celsius. The baseline mean global temperature is the 
+global temperature from 1951-1980, which is 14.0o C (57.2o Fahrenheit).
+- For data details, read the bottom of the Nasa page:
+http://data.giss.nasa.gov/gistemp/tabledata_v3/GLB.Ts+dSST.txt
+
+#### Some requests
+
+- If there are some tasks that you can imagine needing to code up again, *write a 
+function for it*.
+- Your final html document should read like an informative analysis of this
+temperature data set meant to be be consumed by a non-programmer. That is,
+    - Supress R code (though an exception may be easy-to-read output).
+    - The narrative should be as in a natural analysis; not as a collection of
+    enumerated answers to exercises.
+    - Use sensible Markdown sytax for organization.
+    - Fiddle with "knitr chunk options" to get the figures you're going for.
+- Your source, however, should be crystal clear to another programmer.
+    + Code with style.
+    + Label your chunks.
+
+* * *
+
+Please complete the following exercises using R vectors:
+
+1.   Convert the data from scaled deviation in Celsius to absolute temperature in 
+Fahrenheit. What is the mean temperature in Fahrenheit over the entire data set? 
+Confirm that your result is reasonable. Use your new Fahrenheit vector for the 
+rest of the exercises.
+
+1.   Find the mean global temperature of each the summer months: June, July, and August. Also please find the lowest and 
+highest global average temperatures for each month. This is easiest if you create new 
+vectors that have all June temperatures, all July temperatures, and so on. 
+When did the lowest and highest occur for each month? Are the highest temperatures 
+generally more recent than the lowest temperatures?
+
+1.   For the rest of the project, it will be helpful to define two functions. 
+Define one function that takes the month and year as input and outputs the index in 
+the vector for that given month and year. Define another function that takes the index 
+in the vector as the input and outputs the month and year.
+
+1.   Create plots of the monthly average temperature over time for each month: 
+one plot for all January average temperatures, one plot for all February average 
+temperatures, etc. To make a plot with a single vector, use the `plot()` function.
+The plots should have *Years* on the horizontal axis, and *Temperature* on the vertical 
+axis. Does there seem to be a warming trend? The previously defined functions will 
+be helpful here.  Feel free to fiddle with the optional arguments to `plot()` (more
+are found with `?par`).
+
+1.   Create a plot that shows the average annual temperature over all years. 
+(That is, create one plot where each data point corresponds to the average temperature 
+for a year.) In what years did the highest and lowest average temperatures occur?
+
+1.   Create a plot showing the monthly average temperature starting at January 
+2000 (one plot showing all data points from January 2000 through December 2012). 
+Do you see any pattern to the data? Are temperatures rising? The previously defined 
+functions will be helpful here.
+
+1.   Create a plot of the monthly average temperatures starting at January 1990 
+and ending on December 1999. Do you see any pattern to the data? Are temperatures 
+rising? Which months had the highest and lowest temperatures?
+
+1.   Plot the monthly average temperature of every month in the 1890s. What is 
+the mean temperature of this decade? How does this decade compare to the 1990s?
+
+1.   Create plots of the monthly averages of the first 44 years, the second 44 
+years, and the last 43 years. Do you see any warming trends in any of these 
+plots? What is the average temperature of each of these time periods? Remember 
+to use the previously defined functions!
+
+
+<div id="license">
+Adapted from material developed by Olaf Hall-Holt and Paul Roback for CS 125 at St. Olaf College.
+</div>
