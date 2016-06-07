@@ -1,0 +1,363 @@
+---
+title: "Control Flow"
+output:
+  ioslides_presentation:
+    incremental: true
+---
+
+## for {.build}
+
+A `for` loop is useful for doing the same task a specific number of times.
+
+```
+for (*condition telling us how many times to run the loop*) {
+  *task to repeat*
+}
+```
+
+
+## for (continued) {.build}
+
+```{r}
+total_population <- c()
+
+for (i in 1:nrow(state.x77)) {
+  total_population <- c(total_population, state.x77[i, 1])
+}
+```
+
+We declare an empty object called `total_population`.
+
+Then, we run the `for` loop.  For every row in `state.x77`, we use the combine
+that state's population to the `total_population` vector.
+
+
+## performance {.build}
+
+```{r}
+total_population <- c()
+system.time(
+for (i in 1:nrow(state.x77)) {
+  total_population <- c(total_population, state.x77[i, 1])
+}
+)
+```
+
+
+## performance with microbenchmark {.build}
+
+```{r}
+library(microbenchmark)
+total_population <- c()
+microbenchmark(
+for (i in 1:nrow(state.x77)) {
+  total_population <- c(total_population, state.x77[i, 1])
+}
+)
+```
+
+
+## Caveat {.build}
+
+    Premature optimization is the root of all evil.
+
+-Donald Knuth
+
+
+## for (continued) {.build}
+
+The total population in the United States is...
+
+```{r}
+sum(total_population)
+```
+
+
+##  {.build}
+
+Using `microbenchmark` package, compare three flavors of
+
+```{r}
+total_population <- c()
+for (i in 1:nrow(state.x77)) {
+  total_population <- c(total_population, state.x77[i, 1])
+}
+```
+
+1. **Method I**: As is.
+2. **Method II**: Use `append()` instead of `c()`.
+3. **Method III**: Initialize `total_population` as a vector of `NA`s of the right length,
+then use square bracket indexing to fill them in.
+
+## if {.build}
+
+If statements control the execution of code within them subject to some condition.
+
+The format of an if statement is the following:
+
+```
+if (condition) {do these tasks}
+```
+
+The if statement is a function which takes one argument: the conditional statement
+which is to be evaluated. The bracketed code is then only run when the condition 
+has been evaluated as `TRUE`.
+
+
+## if (continued) {.build}
+
+```{r}
+x1 <- runif(1, -1, 1)
+x1
+```
+
+```{r}
+if(x1 > 0){
+  print('Positive!')
+}
+```
+
+In the above example, 'Positive!' is only printed when the conditional evaluates 
+to `TRUE`, in this case, when x1 is greater than 0.
+
+
+## ifelse {.build}
+
+The `ifelse()` command is an extension of the if statement. 
+
+Unlike the if statement, which has one 'argument', the `ifelse()` function has 
+three arguments.
+
+The format of an ifelse statement takes the following form:
+`ifelse(condition, do if true, do if false)`
+
+
+## ifelse (continued) {.build}
+
+```{r}
+x1 <- runif(1, -1, 1)
+x1
+```
+
+```{r}
+ifelse(x1 > 0, 'Positive', 'Not Positive')
+```
+
+
+##{.build}
+
+Compare run times for two different ways to create a vector that's the same
+length of `x` that contains the appropriate strings: `negative` and `positive`.
+
+```{r}
+set.seed(32)
+x <- runif(1e6, -1, 1)
+```
+
+1. **Method I**: Use `ifelse()`.
+2. **Method II**: Use square brackets and change-in-place notation.
+
+
+## while {.build}
+
+`while` loops and executes command until condition is no longer satisfied.
+
+```
+while (*condition to be satisfied*) {
+*task to be completed for each iteration*
+}
+```
+
+## while (continued) {.build}
+
+Let's do an example where we want to loop through numbers, starting at 0 and 
+ending when we reach 7. We will then add 1 to our number and print it.
+
+```{r}
+x <- 0
+while (x < 7) {x <- x + 1; print(x);}
+```
+
+
+## next {.build}
+
+`next` stops the processing of the current iteration and advances the index.
+
+It is used within a loop.
+
+
+##  {.build}
+
+Try an example with a `while` and a `next`. Print numbers starting
+at 0 and ending at 7, but don't print the evens. Use next when you hit 
+an even number to move to the next iteration.
+
+
+
+##  {.build}
+
+Try an example with a `while` and a `next`. Print numbers starting
+at 0 and ending at 7, but don't print the evens. Use next when you hit 
+an even number to move to the next iteration.
+
+```{r}
+x <- 0
+while(x < 7) {
+  x <- x + 1
+  if ( x %% 2 == 0) next
+  print(x)
+}
+```
+
+
+## break {.build}
+
+`break` breaks out of a loop and control is transferred to the first statement 
+that is outside of the current loop.
+
+It can be used in a `for`, `while`, or `repeat` loop.
+
+
+## break (continued) {.build}
+
+Let's do an example with a `for`. 
+
+```{r}
+x <- 0
+for (x in 1:7) {
+  print(x)
+  x <- x + 1
+  if (x == 5) break
+}
+```
+
+
+## break (continued) {.build}
+
+```{r}
+for (x in 1:7) {
+  print(x)
+  x <- x + 1
+}
+```
+
+
+## repeat {.build}
+
+A `repeat` loop contains a single task that loops over and over.  Unlike the `for` 
+and `while` loops, it does not have a predefined condition that dictates how many 
+times it iterates.
+
+Instead, a `repeat` loops only exits with a `break` statement.
+
+
+## repeat (continued) {.build}
+
+```
+repeat {
+
+  *some task over and over*
+  
+  if (*condition*) break 
+  
+}
+```
+
+## repeat (continued) {.build}
+
+Generate a random number between 1 and 5.
+
+When we get 2, break.
+
+
+```{r}
+repeat {
+  x <- sample(1:5, 1)
+  print(x)
+  if(x == 2) break
+}
+```
+
+
+## warning(s) {.build}
+
+Warnings are functions which indicate there could be trouble.
+You can create your own warnings inside your own functions.
+
+```{r eval=FALSE}
+myFunction <- function(args...){
+  check args...
+  warning(condition, message)
+  do stuff
+}
+```
+
+
+## `warning()` example {.build}
+
+```{r warning = TRUE}
+my_function <- function(x, y) {
+  if(y == 0) {
+    warning('Division by zero')
+  }
+  return(x/y)
+}
+
+my_function(10, 0)
+```
+
+
+## stop {.build}
+
+`stop()` is a way to break out of a loop with an error.
+
+```{r, eval=FALSE}
+for (x in 1:20) {     
+    x <- x + 1
+    if (x %% 6 != 0) {
+      print(x)
+    } else {     
+      stop("x is now divisible by 6")    
+    }
+}
+```
+
+The loop stops and our error message is displayed as soon as `stop()` is called 
+(i.e. when x is divisible by 6).
+
+
+## apply {.build}
+
+A family of functions that applies a function to each element of a vector (or other
+structure).
+
+- `apply()`, `sapply()`, `lapply()`, `rapply()`, `mapply()`, `tapply()`, `eapply()`.
+
+
+```{r, eval = TRUE}
+m <- matrix(c(rnorm(30, 0), rnorm(30, 2),
+              rnorm(30, 5)), nrow = 30, 
+            ncol = 3)
+```
+
+**Recall**: A matrix is a vector with a second dimension attribute.  To subset,
+
+```{r, eval = FALSE}
+m[rows, columns]
+```
+
+
+## {.build}
+
+Compute the mean of the three columns in the following matrix.
+
+```{r, eval = TRUE}
+set.seed(157)
+m <- matrix(c(rnorm(30, 0), rnorm(30, 2),
+              rnorm(30, 5)), nrow = 30, ncol = 3)
+```
+
+- **Method I**: use `apply()`.
+- **Method II**: use `colMeans()`.
+- **Method III**: use a for loop and the `mean()` function (loop through 3 cols).
+- **Method IV**: use nested for loops (loop through all cols and rows).
