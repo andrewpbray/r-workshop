@@ -86,8 +86,7 @@ Provide your hometown and include a photo of it.  Also print
 out some basic demographic data on your home state by using the following code.
 
 ```{r, eval=FALSE}
-data(states)
-states.x77[rowNumber,]
+state.x77[rowNumber,]
 ```
 
 You'll need to replace `rowNumber` with the row number of your state.  Also, please
