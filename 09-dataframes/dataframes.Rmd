@@ -1,0 +1,260 @@
+---
+title: "Dataframes"
+author: "Andrew Bray (some content from Advanced R - Wickham)"
+output:
+  ioslides_presentation:
+    incremental: true
+---
+
+## Good ol' mtcars {.build}
+
+```{r, eval = FALSE}
+data(mtcars)
+head(mtcars)
+```
+
+- What are the dimensions?
+- What type of data is in each column?
+
+![mt](mt.jpg)
+
+
+## Representation one: a dataframe {.build}
+
+
+```{r}
+class(mtcars)
+dim(mtcars)
+apply(mtcars, 2, class)
+```
+
+
+## Representation two: a list {.build}
+
+
+```{r}
+mode(mtcars)
+length(mtcars)
+```
+
+
+## Data Type Ecosystem {.build}
+
+|    | Homogeneous   | Heterogeneous |
+|----|---------------|---------------|
+| 1d | Atomic vector | List          |
+| 2d | Matrix        | (Data frame)  |
+| nd | Array         |               |
+
+# Lists
+
+## Lists {.build}
+
+*Everything in R is a vector*
+
+...except maybe **lists**.
+
+Lists are heterogenous: can contain elements of any mode/type and length
+
+- numerics/double/fp
+- integer
+- string
+- logical
+- lists
+
+
+## Lists {.build}
+
+```{r}
+x <- list(1:3, "a", c(TRUE, FALSE, TRUE), c(2.3, 5.9))
+str(x)
+is.list(mtcars)
+is.list(lm(mpg ~ wt, data = mtcars))
+```
+
+## Lists {.build}
+
+```{r}
+str(lm(mpg ~ wt, data = mtcars))
+```
+
+## Subsetting lists {.build}
+
+*If list x is a train carrying objects, then x[[5]] is the object in car 5; x[4:6] is a train of cars 4-6.*
+
+— @RLangTip
+
+`[]` extracts the coarsest elements of the list up to the `length()`, but remains a list.
+
+`[[]]` extracts the actual object from the list in its original mode/type.
+
+
+## Subsetting lists {.build}
+
+```{r}
+x <- list(1:3, "a", c(TRUE, FALSE, TRUE), c(2.3, 5.9))
+x[1]
+x[[1]]
+```
+
+How would you extract the `FALSE`?
+
+
+## Unlist {.build}
+
+Since lists don't simplify when subsetted, you need to use `unlist()` if you want to flatten them into a vector.
+
+```{r}
+unlist(x)
+```
+
+
+
+## ... {.build}
+
+- The ellipsis is used to pass additional named or unnamed arguments to a function.
+- Most often used to pass parameters to a function called by your function.
+- You can access these arguments by putting them into a **list**.
+
+```{r}
+HelloWorld <- function(...) {
+  arguments <- list(...)
+  paste(arguments)
+}
+
+HelloWorld("Hello", "World", "!")
+```
+
+# Dataframes
+
+## Dataframes {.build}
+
+- List of equal-length vectors.
+- 2-dimensional structure.
+- Shares properties of both matrix and list.
+
+```{r}
+df <- data.frame(x = 1:3,
+                 y = c("a", "b", "c"))
+str(df)
+```
+
+
+## Dataframes {.build}
+
+1. What `attributes()` does this dataframe have?
+2. What happens when you convert this dataframe into a matrix?
+
+```{r}
+attributes(df)
+```
+
+
+## Dataframes {.build}
+
+```{r}
+as.matrix(df)
+```
+
+
+## Subsetting {.build}
+
+`$` is an operator used to access a column from a dataframe.
+
+and it can do partial matching.
+
+```{r}
+x <- data.frame(abc = 1)
+x$a
+```
+
+
+## Subsetting {.build}
+
+Similarly to vectors, you can subset with indices or logicals.
+
+```{r}
+df <- data.frame(x = 1:3, y = 3:1,
+                 z = letters[1:3])
+df[df$x == 2, ]
+df[c(1, 3), ]
+```
+
+
+## Since dataframes are lists... {.build}
+
+What is returned by `mtcars[1]`?
+```{r}
+mtcars[1]
+```
+
+
+## Since dataframes are lists... {.build}
+
+What is returned by `mtcars[[1]]`?
+```{r}
+mtcars[[1]]
+```
+
+
+## {.build}
+
+I've shown you two operators that essentially subset a data frame in the same manner. What are they?
+
+`$` and `[[]]`.
+
+Only difference: `$` does partial matching, `[[]]` does not.
+
+
+## Subsetting (matrix + list){.build}
+
+You can subset as a matrix or a list:
+```{r}
+df[, c("x", "z")]
+df[c("x", "z")]
+```
+
+
+## Subsetting (matrix + list) {.build}
+However, note that matrix subsetting simplifies; list does not.
+
+```{r}
+str(df[, "x"])
+str(df["x"])
+```
+
+
+## Subsetting {.build}
+
+Slice an element out of a vector or pick out an element from a full matrix.
+
+```{r}
+df <- data.frame(x = 1:3, y = 3:1,
+                 z = letters[1:3])
+df$z[3]
+df[3,3]
+```
+
+
+## {.build}
+
+Fix the following subsetting errors using data from `data(mtcars)`.
+
+```{r, eval = FALSE}
+mtcars[mtcars$cyl = 4, ]
+mtcars[-1:4, ]
+mtcars[mtcars$cyl <= 5]
+mtcars[mtcars$cyl == 4 | 6, ]
+```
+
+
+## Dataframe takaways {.build}
+
+- Central structure in R for multivariate data.
+- Lots of functions and packages work in dataframes.
+- Lots of metadata.
+- Encourages tiny data and clean analysis.
+- Can be slow.
+
+
+## Practice

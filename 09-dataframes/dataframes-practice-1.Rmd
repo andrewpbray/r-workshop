@@ -1,0 +1,33 @@
+---
+title: "Dataframes: Practice"
+author: "R Workshop"
+output:
+  html_document:
+    css: ../workshop.css
+    highlight: pygments
+    theme: cerulean
+  pdf_document: default
+---
+
+```{r, echo=FALSE, warning=FALSE, message=FALSE}
+require(knitr)
+opts_chunk$set(warning = FALSE, message = FALSE)
+```
+
+For the following exercises, load in the built in earthquake data set.
+
+```{r, eval=FALSE}
+data(quakes)
+```
+
+1.   How would you find information about this data frame? How many rows and columns does it have?
+1.   Based purely on the description of the columns (found with `?quakes`), would you expect a relationship between the 4th and 5th columns? Why or why not?
+1.   Show a command you could use to find the average (mean) magnitude of all earthquakes that occurred below the median depth of all earthquakes.
+1.   How does the average magnitude of these "deep" earthquakes compare to the magnitude of "shallow" (above median depth) earthquakes?
+1.   Show the command you would use to get the row(s) with the smallest value in the `depth` column.
+
+
+
+<div id="license">
+Adapted from material developed by Olaf Hall-Holt and Paul Roback for CS 125 at St. Olaf College.
+</div>
