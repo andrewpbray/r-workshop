@@ -1,0 +1,342 @@
+---
+title: "dplyr"
+output:
+  ioslides_presentation:
+    incremental: true
+---
+
+```{r echo = FALSE}
+knitr::opts_chunk$set(warnings = FALSE, message = FALSE)
+# with conetent from CRAN tutorial and pnwflights14 by chester ismay.
+```
+
+## Before we begin
+
+Please download, install, and load `pnwflights14` package from the the github account of user `ismayc`.
+
+(If you've never done this before, google around (or look at old slides) to figure out how to load a package from github)
+
+
+## Two paradigms {.build}
+
+### R
+```{r}
+cyl4s <- mtcars[mtcars$cyl == 4, ]
+mean(cyl4s$mpg)
+```
+
+### R with dplyr
+```{r}
+library(dplyr)
+cyl4s <- filter(mtcars, cyl == 4)
+summarize(cyl4s, mean = mean(mpg))
+```
+
+
+## R Subsetting {.build}
+
+```{r}
+cyl4s <- mtcars[mtcars$cyl == 4, ]
+```
+
+- Square brackets are used to subset dataframes.
+- `[rows, columns]`
+
+
+## R Summaries {.build}
+
+```{r}
+mean(cyl4s$mpg)
+```
+
+- Many commands operate on a *vector* (column) of data extracted from a dataframe
+using the `$`.
+
+
+## dplyr Subsetting {.build}
+
+```{r}
+cyl4s <- filter(mtcars, cyl == 4)
+```
+
+- `dplyr` contains separate functions to *filter* the rows and *select* the columns.
+- The dataframe is one argument and the column names are another (no `$`).
+
+```{r}
+cyl4s <- mtcars %>% filter(cyl == 4)
+```
+
+- Can also *chain* commands using the pipe.
+
+
+## dplyr Summaries {.build}
+
+```{r}
+summarize(cyl4s, mean = mean(mpg))
+```
+
+- Any numerical summary that you want to apply to a column of a dataframe
+is specified within `summarize()`.
+
+```{r}
+cyl4s %>% summarize(mean = mean(mpg))
+```
+
+- This, too, can be put into a chain.
+
+
+## Two paradigms {.build}
+
+### R
+```{r}
+cyl4s <- mtcars[mtcars$cyl == 4, ]
+mean(cyl4s$mpg)
+```
+
+### R with dplyr
+```{r}
+library(dplyr)
+cyl4s <- filter(mtcars, cyl == 4)
+summarize(cyl4s, mean = mean(mpg))
+```
+
+
+## Why dplyr? {.build}
+
+Data sets are often of high *volume* (lots of rows) and high *variety* (lots
+of columns). This is overwhelming to visualize and analyze, so we find ourselves
+chopping the data set up into more manageable and meaningful chunks. We also 
+often need to perform operations to organize and clean our data.
+
+This is all possible in base R, but with `dplyr`, it is **simple**, **readible**, 
+and **fast**.
+
+
+## The Seven Verbs (commands) {.build}
+
+- filter
+- arrange
+- select
+- distinct
+- mutate
+- summarize
+- sample_n
+
+
+## filter() {.build}
+
+Allows you to select a subset of the **rows** of a data frame. The first
+argument is the name of the data frame, the following arguments are the
+filters that you'd like to apply.
+
+For all flights on January 1st:
+
+```{r message = FALSE, warning = FALSE}
+library(pnwflights14)
+filter(flights, month == 1, day == 1)
+```
+
+
+## Constructing filters {.build}
+
+Filters are constructed of **logical operators**: `<`, `>`, `<=`, `>=`, `==`,
+`!=` (and some others).
+
+Adding them one by one to `filter()` is akin to saying "this AND that". To say
+"this OR that OR both", use |.
+
+```{r}
+filter(flights, month == 1 | month == 2)
+```
+
+
+## Exercise 1 {.build}
+
+Construct filters to isolate:
+
+1. Flights that left on St. Patrick's Day.
+2. Flights that were destined for Chicago's primary airport.
+3. Flights that were destined for Chicago's primary airport and were operated by
+United Airlines.
+4. Flights with flight times more than 2000 miles or that were in the air more
+than 5 hours.
+
+
+## {.build}
+
+1. Flights that left on St. Patrick's Day.
+2. Flights that were destined for Chicago's primary airport.
+3. Flights that were destined for Chicago's primary airport and were operated by
+United Airlines.
+4. Flights with flight times more than 2000 miles or that were in the air more
+than 5 hours.
+
+```{r eval = FALSE}
+filter(flights, month == 3, day == 17)
+filter(flights, dest == "ORD")
+filter(flights, dest == "ORD", carrier == "UA")
+filter(flights, distance > 2000 | air_time > 5 * 60)
+```
+
+
+## arrange() {.build}
+
+`arrange()` works similarly to `filter()` except that instead of filtering or 
+selecting rows, it reorders them. It takes a data frame, and a set of column 
+names (or more complicated expressions) to order by. If you provide more than 
+one column name, each additional column will be used to break ties in the values
+of preceding columns:
+
+```{r, eval = FALSE}
+arrange(flights, year, month, day)
+```
+
+Use `desc()` to sort in descending order.
+
+```{r, eval = FALSE}
+arrange(flights, desc(arr_delay))
+```
+
+
+## select() {.build}
+
+Often you work with large datasets with many columns where only a few are 
+actually of interest to you. `select()` allows you to rapidly zoom in on a useful
+subset:
+
+```{r eval=FALSE}
+select(flights, year, month, day)
+```
+
+You can exclude columns using `-` and specify a range using `:`.
+
+```{r eval = FALSE}
+select(flights, -(year:day))
+```
+
+
+## distinct() {.build}
+
+A common use of `select()` is to find out which values a set of variables takes. 
+This is particularly useful in conjunction with the `distinct()` verb which only 
+returns the unique values in a table.
+
+What do the following data correspond to?
+
+```{r}
+distinct(select(flights, origin, dest))
+```
+
+
+## mutate() {.build}
+
+As well as selecting from the set of existing columns, it's often useful to add 
+new columns that are functions of existing columns. This is the job of `mutate()`:
+
+```{r}
+mutate(flights, gain = arr_delay - dep_delay)
+```
+
+
+## summarize() and sample_n() {.build}
+
+`summarize()` collapses a data frame to a single row. It's not very useful yet. 
+`sample_n()` provides you with a random sample of the rows.
+
+```{r}
+summarize(flights, delay = mean(dep_delay, na.rm = TRUE))
+sample_n(flights, 10)
+```
+
+
+## Exercise 2 {.build}
+
+**Mutate** the data so that it includes a new variable that contains the average speed traveled
+by the plane for each flight. **Select** that new variable and save it, along with
+tailnum, as a new dataframe object called `speed`.
+
+
+##
+
+```{r}
+flights <- mutate(flights, speed = distance / (air_time / 60))
+speed <- select(flights, tailnum, speed)
+```
+
+
+## Aggregation aka group_by() {.build}
+
+These verbs become really powerful when you combine them with the idea of 
+"group by", repeating the operation individually on groups of observations 
+within the dataset. The `group_by()` function describes how to break a 
+dataset down into groups of rows.
+
+You can then use the resulting object in exactly the same functions as above;
+they'll automatically work "by group" when the input is a grouped.
+
+
+## group_by() {.build}
+
+We can find the fastest airplanes in the bunch:
+
+```{r}
+by_tailnum <- group_by(speed, tailnum)
+avg_speed <- summarize(by_tailnum, 
+                       count = n(), 
+                       avg_speed = mean(speed, na.rm = TRUE))
+arrange(avg_speed, desc(avg_speed))
+```
+
+
+## Chaining {.build}
+
+Instead of applying each verb step-by-step, we can chain them into a single
+data pipeline, connected with the `%>%` operator. You start the pipeline with
+a dataframe and then pass it to each function in turn.
+
+```{r}
+speed %>%
+  group_by(tailnum) %>% 
+  summarize(count = n(), avg_speed = mean(speed, na.rm = TRUE)) %>%
+  arrange(desc(avg_speed))
+```
+
+
+## Exercise 3 {.build}
+
+Form a chain that creates a dataframe containing only carrier and their
+average departure delay time. Which carriers have the highest and lowest mean
+delays?
+
+
+##  {.build}
+```{r}
+flights %>%
+  group_by(carrier) %>%
+  summarize(avg_delay = mean(dep_delay, na.rm = TRUE)) %>%
+  arrange(desc(avg_delay))
+```
+
+
+## Pipe into a plot {.build}
+```{r fig.height = 3}
+library(ggplot2)
+flights %>%
+  group_by(carrier) %>%
+  summarize(avg_delay = mean(dep_delay, na.rm = TRUE)) %>%
+  arrange(desc(avg_delay)) %>%
+  qplot(x = carrier, y = avg_delay, data = ., geom = "point")
+```
+
+
+## The `.`
+When forming a chain, the `%>%` operator will default to putting the output of
+one function into the first argument of the next. You can change where this argument
+"lands" by using `.`
+
+```{r fig.height = 3}
+flights %>%
+  filter(origin == "PDX") %>%
+  qplot(x = carrier, data = ., geom = "bar")
+```
+

@@ -1,0 +1,48 @@
+---
+title: 'dplr: Practice'
+author: "R Workshop"
+output:
+  html_document:
+    css: ../workshop.css
+    highlight: pygments
+    theme: cerulean
+  pdf_document: default
+---
+
+```{r, echo=FALSE, warning=FALSE, message=FALSE}
+require(knitr)
+opts_chunk$set(warning=FALSE, message=FALSE)
+```
+
+
+### Earthquake data
+
+```{r load-quakes, eval = FALSE}
+data(quakes)
+```
+
+1.   Show a command you could use to find the average (mean) magnitude of all earthquakes that occurred below the median depth of all earthquakes.
+1.   How does the average magnitude of these "deep" earthquakes compare to the magnitude of "shallow" (above median depth) earthquakes?
+1.   Show the command you would use to get the row(s) with the smallest value in the `depth` column.
+1.   Show the command you would use to create a new data frame named `quakes_sorted` that stores the data in sorted order by `depth`.
+
+* * *
+
+### Flights data
+
+```{r load-flights, eval = FALSE}
+library(pnwflights14)
+data(flights)
+```
+
+1. Say I fly very often between PDX airport in Portland and Logan Airport in Boston. Based on the 2013 data, which day of the week would you recommend that I buy a ticket for if I want to minimize delays?
+
+1. What advice do you have for the best airline for this route?
+
+
+* * *
+
+### Back to Global Warming
+
+Go back to the vector `tData` that you used for the project. Use this data and
+maybe `dplyr` to form a dataframe that will make the analysis much more straightforward.
