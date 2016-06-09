@@ -1,0 +1,35 @@
+---
+title: "Mini-Datafest: Airbnbeantown"
+author: "R Workshop"
+date: "June 9, 2016"
+output:
+  html_document:
+    css: ../workshop.css
+    highlight: pygments
+    theme: cerulean
+  pdf_document: default
+---
+
+For this activity you'll be investigating a data set that contains information
+from all listings on airbnb for Boston as they appeared on October 3rd, 2015.
+
+![](http://www4.pcmag.com/media/images/466843-weird-places-you-can-stay-on-airbnb.jpg?thumb=y&width=740&height=426)  
+  
+## Data
+To download the compressed .csv file, click the link below:
+
+[https://www.dropbox.com/s/xk6e3hrfh4qiw3w/listings.csv.gz?dl=0](https://www.dropbox.com/s/xk6e3hrfh4qiw3w/listings.csv.gz?dl=0)
+
+## Objective
+Your job is simple (?): use the data available to gain insight into the process of the hoteling and the sharing economy. Your final product will
+be four slides (feel free to use markdown ioslides, R presentations, keynote, google
+slides, etc.).
+
+A suggested strategy is the following:
+
+- **Get the lay of the land** by getting a sense of the data available and doing exploratory 
+data analysis.
+- **Identify** the 1-3 topics/questions that you find most interesting.
+- **Formulate** a possible visualization/statistic/ranking that will address
+the questions.
+- **Diagram** a pathway to get from the raw data to the final data product.
