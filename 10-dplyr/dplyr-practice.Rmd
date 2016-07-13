@@ -35,7 +35,7 @@ library(pnwflights14)
 data(flights)
 ```
 
-1. Say I fly very often between PDX airport in Portland and Logan Airport in Boston. Based on the 2013 data, which day of the week would you recommend that I buy a ticket for if I want to minimize delays?
+1. Say I fly very often between PDX airport in Portland and Logan Airport in Boston. Based on the 2014 data, which day of the week would you recommend that I buy a ticket for if I want to minimize delays?
 
 1. What advice do you have for the best airline for this route?
 
