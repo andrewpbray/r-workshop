@@ -303,6 +303,11 @@ my_function <- function(x, y) {
   return(x/y)
 }
 
+my_function <- function(x, y) {
+  stop(y == 0, "don't divide by zero!")
+  return(x/y)
+}
+
 my_function(10, 0)
 ```
 

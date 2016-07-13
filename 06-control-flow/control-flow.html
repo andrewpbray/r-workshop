@@ -128,8 +128,8 @@ for (i in 1:nrow(state.x77)) {
 <pre >## Unit: microseconds
 ##                                                                                           expr
 ##  for (i in 1:nrow(state.x77)) {     total_population &lt;- c(total_population, state.x77[i, 1]) }
-##     min       lq    mean  median       uq      max neval
-##  68.395 247.6525 449.175 315.773 462.6425 1399.238   100</pre>
+##     min       lq     mean   median      uq      max neval
+##  66.037 257.6445 434.1863 342.2795 449.311 1611.292   100</pre>
 
 </article></slide><slide class=''><hgroup><h2>Caveat</h2></hgroup><article  id="caveat" class="build">
 
@@ -175,7 +175,7 @@ for (i in 1:nrow(state.x77)) {
 <pre class = 'prettyprint lang-r'>x1 &lt;- runif(1, -1, 1)
 x1</pre>
 
-<pre >## [1] -0.1907982</pre>
+<pre >## [1] -0.5750654</pre>
 
 <pre class = 'prettyprint lang-r'>if(x1 &gt; 0){
   print(&#39;Positive!&#39;)
@@ -196,7 +196,7 @@ x1</pre>
 <pre class = 'prettyprint lang-r'>x1 &lt;- runif(1, -1, 1)
 x1</pre>
 
-<pre >## [1] -0.2536542</pre>
+<pre >## [1] -0.02904677</pre>
 
 <pre class = 'prettyprint lang-r'>ifelse(x1 &gt; 0, &#39;Positive&#39;, &#39;Not Positive&#39;)</pre>
 
