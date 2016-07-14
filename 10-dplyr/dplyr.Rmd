@@ -253,14 +253,14 @@ sample_n(flights, 10)
 
 **Mutate** the data so that it includes a new variable that contains the average speed traveled
 by the plane for each flight. **Select** that new variable and save it, along with
-tailnum, as a new dataframe object called `speed`.
+tailnum, as a new dataframe object called `speed_df`.
 
 
 ##
 
 ```{r}
-flights <- mutate(flights, speed = distance / (air_time / 60))
-speed <- select(flights, tailnum, speed)
+flights_ad <- mutate(flights, speed = distance / (air_time / 60))
+speed_df <- select(flights_ad, tailnum, speed)
 ```
 
 
@@ -280,11 +280,11 @@ they'll automatically work "by group" when the input is a grouped.
 We can find the fastest airplanes in the bunch:
 
 ```{r}
-by_tailnum <- group_by(speed, tailnum)
-avg_speed <- summarize(by_tailnum, 
+by_tailnum <- group_by(speed_df, tailnum)
+avg_speed_df <- summarize(by_tailnum, 
                        count = n(), 
                        avg_speed = mean(speed, na.rm = TRUE))
-arrange(avg_speed, desc(avg_speed))
+arrange(avg_speed_df, desc(avg_speed))
 ```
 
 
@@ -295,7 +295,7 @@ data pipeline, connected with the `%>%` operator. You start the pipeline with
 a dataframe and then pass it to each function in turn.
 
 ```{r}
-speed %>%
+speed_df %>%
   group_by(tailnum) %>% 
   summarize(count = n(), avg_speed = mean(speed, na.rm = TRUE)) %>%
   arrange(desc(avg_speed))
